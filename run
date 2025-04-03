@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Uso: ./run <arquivo.c>"
+    exit 1
+fi
+
+SRC="$1"
+EXEC="out/${SRC%.c}.out"
+HEADER_DIR="out"
+
+mkdir -p "$HEADER_DIR"
+
+gcc "$SRC" -o "$EXEC" -Wall -Wextra -O2
+
+if [ $? -eq 0 ]; then
+    echo "Movendo arquivos .h para $HEADER_DIR"
+    mv *.h "$HEADER_DIR" 2>/dev/null
+    echo "Execução do programa:"
+    ./$EXEC
+else
+    echo "Erro na compilação."
+fi
