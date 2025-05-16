@@ -1,0 +1,4 @@
+
+typedef struct Pilha {
+    
+} TPilha;
